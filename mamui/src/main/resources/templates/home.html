@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+    <head>
+
+        <script src="js/jquery-3.6.4.min.js"></script>    
+        <script src="js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        
+    </head>
+    <body ng-app="mamManagement" ng-controller="mamManagementController">
+        <div>
+        <label>Search:</label>
+        <input type="text" ng-model="yourName" placeholder="Enter a name here">
+        <h3>{message} {{yourName}}!</h3>
+
+        <table class="table table-striped table-bordered">
+        <caption></caption>
+        <thead>
+            <tr id="a">
+                <th id="action-column" style="width:100px"> Actions </th>
+                <th id="name-column"> Name </th>
+                <th id="type-column"> Type  </th>
+                <th id="length-column"> Length  </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="media in mediaResult.data"> 
+                <td> ... </td> 
+                <td> {{ media.name }} </td> 
+                <td> {{ media.type }} </td> 
+                <td> {{ media.hour }}:{{ media.minute }} </td> 
+            </tr>
+        </tbody>
+        </table>
+        
+        <div>count: {{ mediaResult.count }}</div>
+        <div>page: {{ mediaResult.pageNo }}</div>
+        <div>page size: {{ mediaResult.pageSize }}</div>
+        <div>page countt: {{ mediaResult.pageCount }}</div>
+
+    </div>
+ 
+    <script type="text/javascript"> 
+        var distance;
+        var app = angular.module("mamManagement", []);
+        var data = {};
+
+        app.controller("mamManagementController", function ($scope, $http) {
+            $scope.mediaResult = [];
+
+            var statistics = [];            
+            $http({
+              method: 'GET',
+              url: '{gatewayURL}/ott/media',
+              data: angular.toJson(data),
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin' : '*'
+              }
+            }).then(function successCallback(response) {
+              $scope.mediaResult = response.data;
+            }, function errorCallback(response) {
+              console.log(response.statusText);
+            });
+        });
+
+
+    </script>
+  </body>
+</html>

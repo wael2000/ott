@@ -1,0 +1,210 @@
+<div class="container register">
+                <div class="row">
+
+                    <div class="col-md-9 register-right">
+                        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Employee</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hirer</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Apply as a Employee</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select name="type" class="form-control">
+                                                <option class="hidden"  selected disabled>Select media type</option>
+                                                <option>Drama</option>
+                                                <option>Comedy</option>
+                                                <option>Documentary</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="decription" type="text" class="form-control" placeholder="Description *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control"  placeholder="Confirm Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline"> 
+                                                    <input type="radio" name="gender" value="male" checked>
+                                                    <span> Male </span> 
+                                                </label>
+                                                <label class="radio inline"> 
+                                                    <input type="radio" name="gender" value="female">
+                                                    <span>Female </span> 
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input class="form-control" type="file" id="mobileThumb" placeholder="Mobile Thumbnail">
+                                             <input type="file" class="col form-control text-field-box mt-3" name="cv" id="files" placeholder="CV" accept="application/pdf" required />
+   
+                                            <label class="ml-3 " 
+    style="font-size: 13px;position: absolute;top: 0px;
+    font-family: 'Roboto', sans-serif;font-weight: 300;">CV</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3  class="register-heading">Apply as a Hirer</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="`Answer *" value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 register-left">
+                        <img src="img/hadif.png" alt=""/>
+                        <h3>Steps</h3>
+                        <p>You are 30 seconds away from earning your own money!</p>
+                        <input type="submit" name="" value="Login"/><br/>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+<!--
+numberOfViews: 0,
+rating: 0,
+description: "Journey to Mecca 3",
+type: "Drama",
+thumbnailMobile: "mobile.png",
+minute: 20,
+tags: [
+{
+name: "Drama",
+id: 1
+},
+{
+name: "Comedy",
+id: 2
+}
+],
+cdnSources: [ ],
+thumbnailTv: "tv.png",
+hour: 1,
+thumbnailWeb: "web.png",
+name: "Journey to Lebanon 4",
+id: 4
+-->
+  <div class="row">
+        <div class="col-xl-10 col-lg-10">
+        <div class="p-5">
+
+            <form class="">
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="text" class="form-control" id="name" placeholder="Name">
+                    </div>
+                    <div class="col-sm-6">
+                         <select class="form-control form-select">
+                            <option selected>Select Media Type</option>
+                            <option value="1">Drama</option>
+                            <option value="2">Documentary</option>
+                            <option value="3">Commedy</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="description" placeholder="Description">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <label for="formFile" class="form-label">Mobile Thumbnail</label>
+                        <input class="form-control" type="file" id="mobileThumb" placeholder="Mobile Thumbnail">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="formFile" class="form-label">Web Thumbnail</label>
+                        <input class="form-control" type="file" id="webThumb" placeholder="Mobile Thumbnail">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="formFile" class="form-label">TV Thumbnail</label>
+                        <input class="form-control" type="file" id="tvThumb" placeholder="Mobile Thumbnail">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <input type="text" class="form-control" id="hour" placeholder="Hour[s]"> 
+                    </div>
+                     <div class="col-sm-1">
+                        <input type="text" class="form-control" id="minute" placeholder="Minute[s]">
+                    </div>
+                </div>
+
+            </form>    
+               
+        </div>
+        </div>
+        
+        
+</div>
