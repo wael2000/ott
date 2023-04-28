@@ -77,3 +77,8 @@ Easily start your RESTful Web Services
 Monitor your application's health using SmallRye Health
 
 [Related guide section...](https://quarkus.io/guides/smallrye-health)
+
+### under more about DEV SERVICES FOR DATABASES
+When Docker is detected, Dev Service will pull and run a DB images (default is Postgresql) and configure application to connect to this db as long it runs in dev mode.
+by default db=quarkus, uid=quarkus, pwd=quarkus
+https://quarkus.io/guides/databases-dev-services

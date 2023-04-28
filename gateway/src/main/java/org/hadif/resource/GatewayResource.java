@@ -26,9 +26,9 @@ public class GatewayResource {
     @RestClient
     MediaProxyService mediaService;
 
-    @Inject
-    @Remote("media")
-    RemoteCache<Integer, List> cache;
+    //@Inject
+    //@Remote("media")
+    //RemoteCache<Integer, List> cache;
 
     @GET
     @Path("/media")

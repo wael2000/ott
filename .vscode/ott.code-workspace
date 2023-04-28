@@ -5,6 +5,21 @@
 		}
 	],
 	"settings": {
-		"java.configuration.updateBuildConfiguration": "interactive"
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"openapi.tryit.insecureSslHostnames": [
+			"api.server.test"
+		],
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 59480,
+				"driver": "PostgreSQL",
+				"name": "mam",
+				"database": "quarkus",
+				"username": "quarkus",
+				"password": "quarkus"
+			}
+		]
 	}
 }

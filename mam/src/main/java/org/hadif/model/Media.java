@@ -65,7 +65,7 @@ public class Media extends PanacheEntityBase {
     public String thumbnailWeb;
     public String thumbnailMobile;
     public String thumbnailTv;
- 
+    
 
     //@ManyToMany(cascade = { CascadeType.MERGE })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
