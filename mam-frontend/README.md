@@ -6,6 +6,9 @@ Run `ng new mam-frontend`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.4.
 
+## isntall dependencies  
+
+Run `npm install`
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
@@ -22,6 +25,13 @@ Run `ng g service /media/media`
 
 Edit app-routing.module.ts and add a new route to Media component
 
+## run Keycloack on local Docker
+Run following command 
+
+docker run --name keycloak_dev -p 8080:8080 \                                 
+        -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin \
+        quay.io/keycloak/keycloak:latest \
+        start-dev`
 
 ## Adding Keycloak
 
