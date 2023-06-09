@@ -23,7 +23,7 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0",
     "@angular/localize": "^16.0.5",
-    "@angular/material": "^15.1.0",
+    "@angular/material": "^16.0.4",
     "@fortawesome/fontawesome-free": "^6.3.0",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@ngx-translate/core": "14.0.0",
