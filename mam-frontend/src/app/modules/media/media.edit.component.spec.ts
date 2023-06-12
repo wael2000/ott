@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediaEditComponent } from './media-edit.component';
+import { MediaEditComponent } from './media.edit.component';
 
-describe('MediaComponent', () => {
+describe('MediaEditComponent', () => {
   let component: MediaEditComponent;
   let fixture: ComponentFixture<MediaEditComponent>;
 

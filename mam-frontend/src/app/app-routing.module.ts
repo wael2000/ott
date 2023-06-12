@@ -1,32 +1,30 @@
-import { MediaComponent } from './media/media.component';
-import { MediaEditComponent } from './media/media-edit.component';
-import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
+import { Routes, RouterModule } from '@angular/router';
+//import { AuthGuard } from './modules/auth/services/auth.guard';
 import { AuthGuard } from './auth/auth-guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
-    path: 'media',
-    canActivate: [AuthGuard],
-    component: MediaComponent ,
-    data: { roles: ['mam-user'] }
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'media-edit',
-    canActivate: [AuthGuard],
-    component: MediaEditComponent ,
-    data: { roles: ['mam-user'] }
+    path: 'error',
+    loadChildren: () =>
+      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
   },
   {
     path: '',
-    component: AppComponent
-  }
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
+  },
+  { path: '**', redirectTo: 'error/404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

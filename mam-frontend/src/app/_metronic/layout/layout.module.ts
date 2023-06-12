@@ -26,9 +26,9 @@ import {
   DrawersModule,
   DropdownMenusModule,
   ModalsModule,
-  EngagesModule,
+  //EngagesModule,
 } from '../partials';
-import { EngagesComponent } from '../partials/layout/engages/engages.component';
+//import { EngagesComponent } from '../partials/layout/engages/engages.component';
 import { ThemeModeModule } from '../partials/layout/theme-mode-switcher/theme-mode.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SidebarLogoComponent } from './components/sidebar/sidebar-logo/sidebar-logo.component';
@@ -63,7 +63,7 @@ const routes: Routes = [
     TopbarComponent,
     PageTitleComponent,
     HeaderMenuComponent,
-    EngagesComponent,
+    //EngagesComponent,
     SidebarComponent,
     SidebarLogoComponent,
     SidebarMenuComponent,
@@ -85,7 +85,7 @@ const routes: Routes = [
     ExtrasModule,
     ModalsModule,
     DrawersModule,
-    EngagesModule,
+    //EngagesModule,
     DropdownMenusModule,
     NgbTooltipModule,
     TranslateModule,

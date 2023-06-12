@@ -1,6 +1,18 @@
 import { Routes } from '@angular/router';
 
+import { MediaService } from '../modules/media/media.service';
+
+
 const Routing: Routes = [
+  {
+    path: 'media',
+    resolve: {
+      mediaList: MediaService
+    },
+    loadChildren: () =>
+      import('../modules/media/media.module').then((m) => m.MediaModule),
+    //data: { layout: 'light-sidebar' },
+  },
   {
     path: 'dashboard',
     loadChildren: () =>

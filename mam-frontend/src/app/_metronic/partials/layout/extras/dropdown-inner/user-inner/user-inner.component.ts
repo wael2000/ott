@@ -1,7 +1,9 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
-import { AuthService, UserType } from '../../../../../../modules/auth';
+
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
   selector: 'app-user-inner',
@@ -13,23 +15,34 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
   language: LanguageFlag;
-  user$: Observable<UserType>;
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
-  constructor(
-    private auth: AuthService,
+  public isLoggedIn = false;
+  public userProfile: KeycloakProfile | null = null;
+
+  constructor(private readonly keycloak: KeycloakService,
     private translationService: TranslationService
   ) {}
 
-  ngOnInit(): void {
-    this.user$ = this.auth.currentUserSubject.asObservable();
+  async ngOnInit() {
     this.setLanguage(this.translationService.getSelectedLanguage());
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
+     if (this.isLoggedIn) {
+       this.userProfile = await this.keycloak.loadUserProfile();
+     }
   }
 
   logout() {
-    this.auth.logout();
+    this.keycloak.logout();
+    //this.auth.logout();
     document.location.reload();
+  }
+
+  loadUserProfile() {
+    console.log("Loading user profile");
+    console.log(this.userProfile);
+    this.keycloak.loadUserProfile();
   }
 
   selectLanguage(lang: string) {

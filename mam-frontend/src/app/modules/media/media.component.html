@@ -1,20 +1,112 @@
+<!--begin::Pagination-->
+<div class="list row">
+  <div class="col-md-6">
+    <!--
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllMedia()">
+      Remove All
+    </button>
+    -->
+    Items per Page:
+    <select (change)="handlePageSizeChange($event)">
+      <option *ngFor="let size of pageSizes" ngValue="size" [selected]="size === 10">
+        {{ size }}
+      </option>
+    </select>
+  </div>
 
+  <div class="col-md-6">
+    <div class="input-group mb-3">
+      <!--
+      <select class="form-control" name="searchName" [(ngModel)]="searchName">
+          <<option value="Director">Director</option>
+          <<option value="Actor">Actor</option>
+          <<option value="Writer">Writer</option>
+      </select>
+      -->
+      <div class="form-control checkbox-inline">
+					<label class="checkbox">
+						<input type="checkbox" [(ngModel)]="mine"
+            (change)="search()">
+						<span></span>
+						Mine
+					</label>
+          &nbsp;
+          <label class="checkbox">
+						<input type="checkbox" [(ngModel)]="myTeam"
+            (change)="search()">
+						<span></span>
+						My Team
+					</label>
+			</div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search"
+        [(ngModel)]="searchValue"
+        (keyup.enter)="search()"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="search()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-12">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
 
-
-
-
-
+<!--
+  <div class="col-md-6">
+    <h4>Media List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="
+          let media of mediaList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index
+        "
+        [class.active]="i == currentIndex"
+        (click)="setActiveMedia(media, i)">
+        {{ media.name }}
+      </li>
+    </ul>
+  </div>-->
+  <!--
+  <div class="col-md-6">
+    <app-media-details
+      [viewMode]="true"
+      [currentMedia]="currentMedia"
+    ></app-media-details>
+  </div>
+  -->
+</div>
+<!--end::Pagination-->
 
 
 
 <!--begin::Tables Widget 9-->
+
   <div class="card card-xl-stretch">
+    <!-- <button type="button" (click)="getMedia()">get</button> -->
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
       <h3 class="card-title align-items-start flex-column">
         <span class="card-label fw-bolder fs-3 mb-1">Media Assets</span>
-        <span class="text-muted mt-1 fw-bold fs-7">Over {{mediaList.count}} assets</span>
+        <span class="text-muted mt-1 fw-bold fs-7">Over {{count}} assets</span>
       </h3>
       <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a user">
         <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
@@ -46,14 +138,26 @@
               <th class="min-w-150px">Title</th>
               <th class="min-w-140px">Type</th>
               <th class="min-w-140px">Metadata</th>
-              <th class="min-w-120px">Length</th>
+              <th class="min-w-120px">Length/Year</th>
+              <th class="min-w-120px">Audit</th>
               <th class="min-w-100px text-end">Actions</th>
             </tr>
           </thead>
           <!--end::Table head-->
           <!--begin::Table body-->
-          <tbody>
-            <tr *ngFor="let media of mediaList.data;">
+          <tbody *ngIf="isLoaded$ | async" >
+            <!-- <tr *ngFor="let media of mediaList;"> -->
+            <tr *ngFor="
+              let media of mediaList | paginate : {
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+            [class.active]="i == currentIndex"
+            (click)="setActiveMedia(media, i)">
+
               <td>
                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                   <input class="form-check-input widget-9-check" type="checkbox" value="1" />
@@ -62,7 +166,7 @@
               <td>
                 <div class="d-flex align-items-center">
                   <div class="symbol symbol-45px me-5">
-                    <img src="assets/media/thumbnails/{{media.id}}.png" alt="" />
+                    <img src="assets/media/thumbnails/{{media.id}}.png" onError="this.src='assets/media/thumbnails/default.png'"/>
                   </div>
                   <div class="d-flex justify-content-start flex-column">
                     <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{media.name}}</a>
@@ -77,7 +181,7 @@
                 </span>
               </td>
               <td>
-                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"> <{{media.metadata.length}}> </span>
+                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"> [{{media.metadata.length}}] </span>
                 <span class="text-muted fw-bold text-muted d-block fs-7">
                   <span *ngFor="let metadata of media.metadata;">[{{metadata.name + ":" + metadata.value }}] </span>
                 </span>
@@ -86,8 +190,17 @@
                 <div class="d-flex flex-column w-100 me-2">
                   <div class="d-flex flex-stack mb-2">
                     <span class="text-muted me-2 fs-7 fw-bold">{{media.hour}} : {{media.minute}}</span>
+                    <span class="text-muted me-2 fs-7 fw-bold">{{media.releaseYear}}</span>
                   </div>
                 </div>
+              </td>
+              <td>
+                <span class="text-muted fw-bold text-muted d-block fs-7">
+                  <span>c: {{media.createdBy}} </span>
+                </span>
+                <span class="text-muted fw-bold text-muted d-block fs-7">
+                  <span>u: {{media.updatedBy}} </span>
+                </span>
               </td>
               <td>
                 <div class="d-flex justify-content-end flex-shrink-0">
@@ -101,7 +214,8 @@
                     </span>
                     <!--end::Svg Icon-->
                   </a>
-                  <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+
+                  <a [routerLink]="['/media/edit', media.id]" href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                     <span class="svg-icon svg-icon-3">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -135,15 +249,3 @@
     <!--begin::Body-->
   </div>
   <!--end::Tables Widget 9-->
-
-
-
-<!-- <button type="button" (click)="getMedia()">get</button> -->
-{{mediaList.pageCount}}
-|
-{{mediaList.pageNo}}
-|
-{{mediaList.count}}
-|
-{{mediaList.pageSize}}
-

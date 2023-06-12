@@ -129,7 +129,7 @@ export const DarkSidebarConfig: ILayout = {
   engage: {
     componentName: 'engage',
     demos: {
-      enabled: true,
+      enabled: false,
     },
     purchase: {
       enabled: false,

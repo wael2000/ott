@@ -129,7 +129,7 @@ export const LightSidebarConfig: ILayout = {
   engage: {
     componentName: 'engage',
     demos: {
-      enabled: true,
+      enabled: false,
     },
     purchase: {
       enabled: false,
