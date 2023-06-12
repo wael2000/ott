@@ -63,5 +63,14 @@ public class MediaController {
                                 @QueryParam("size") @DefaultValue(DEFAULT_PAGE_SIZE) Integer size) {
         return service.findByMetadata(name, values,page,size);
     }
+
+    @GET
+    @Path("/user")
+    public Map<String,Object> findByUser(  @QueryParam("user") String user, 
+                                @QueryParam("page") @DefaultValue("1") Integer page, 
+                                @QueryParam("size") @DefaultValue(DEFAULT_PAGE_SIZE) Integer size) {
+        return service.findByUser(user,page,size);
+    }
+    
     
 }

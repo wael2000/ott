@@ -11,10 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.PathParam;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-//import io.quarkus.infinispan.client.Remote;
-//import org.infinispan.client.hotrod.RemoteCache;
 import org.hadif.service.MediaProxyService;
 
 
@@ -26,18 +25,19 @@ public class GatewayResource {
     @RestClient
     MediaProxyService mediaService;
 
-    //@Inject
-    //@Remote("media")
-    //RemoteCache<Integer, List> cache;
-
     @GET
     @Path("/media")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String,Object> listAllMedia(@QueryParam("page")  Integer page, 
                              @QueryParam("size") Integer size) {
-        //System.out.println(cache.get(1));
-        //cache.put(1, list);                    
         return mediaService.listAllMedia(page,size); 
+    }
+
+    @GET
+    @Path("/media/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public  Object findMediaById(@PathParam("id") Integer id) {
+        return mediaService.findMediaById(id); 
     }
 
     @POST
@@ -57,6 +57,15 @@ public class GatewayResource {
                                 @QueryParam("size") Integer size) {
         return mediaService.findByMetadata(name, values,page,size);
     }
+
+    @GET
+    @Path("/media/user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String,Object> findByUser(  @QueryParam("user") String user, 
+                                @QueryParam("page") Integer page, 
+                                @QueryParam("size") Integer size) {
+        return mediaService.findByUser(user,page,size);
+    }   
 
     @POST
     @Path("/collection")

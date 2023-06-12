@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
@@ -29,9 +28,14 @@ import io.quarkus.panache.common.Page;
 @Table(name="Media")
 @Cacheable
 @NamedQuery(name = "media.findAll", query = "SELECT m FROM Media m", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
+@NamedQuery(name = "media.findByUser", query = "SELECT m FROM Media m where m.createdBy = :user", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
+@NamedQuery(name = "media.findByMetadata", query ="SELECT m FROM Media m JOIN Metadata md ON m.id = md.media.id WHERE UPPER(md.name) = UPPER(:name) AND UPPER(md.value) like UPPER(:values)", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
+@NamedQuery(name = "media.search", query ="SELECT distinct m FROM Media m LEFT JOIN Metadata md ON m.id = md.media.id WHERE UPPER(md.value) like UPPER(:values) or UPPER(m.name) like UPPER(:values)", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
+
+// TBD 
 //@NamedQuery(name = "media.findByMetadata", query ="SELECT m FROM Media m JOIN Metadata md ON m.id = md.media.id WHERE md.name = :name AND md.value in :values", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
-@NamedQuery(name = "media.findByMetadata", query ="SELECT m FROM Media m JOIN Metadata md ON m.id = md.media.id WHERE md.name = :name AND md.value like :values", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
-public class Media extends PanacheEntityBase {
+
+public class Media extends BaseModel  {
 
     @Id
     @GeneratedValue
@@ -40,20 +44,16 @@ public class Media extends PanacheEntityBase {
     // basic 
     public String name;
     public String title;
-    /**
-     * movie, series, documentary
-     */
-    public String type;
+    
+    public String type;             // movie, series, documentary
     public String description;   
+    public String longDescription;
+    public String ageRating;        // kids, adults
 
-    // Meta Data
+    // Metadata
     public Integer hour; 
     public Integer minute;
-    public Integer productionYear;
-
-    // Social
-    public Integer rating=0;
-    public Integer numberOfViews=0;
+    public Integer releaseYear;
 
     // Media Delivery
     public String deliveryMethod;   // vod , streaming
@@ -63,9 +63,21 @@ public class Media extends PanacheEntityBase {
     public String thumbnailWeb;
     public String thumbnailMobile;
     public String thumbnailTv;
+
+    // Social & stats
+    public Integer rating=0;
+    public Integer numberOfViews=0;
     
+    // Poster Fields
+    public String posterHorizontal;
+    public String posterVertical;
+    public String heroArt;
+    public String banner;
 
     //@ManyToMany(cascade = { CascadeType.MERGE })
+    /**
+     * used to for Media Genere
+     */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             uniqueConstraints = {
@@ -101,7 +113,26 @@ public class Media extends PanacheEntityBase {
         resultMap.put("count",resutlsPanacheQuery.count());
         return resultMap;
     }
-                
+    
+    /**
+     * find media by user
+     * @param pageNumber
+     * @param pageSize
+     * @param user
+     * @return
+     */
+    public static Map<String,Object> findByUser(String user, int pageNumber,int pageSize) {   
+        Map<String,Object> resultMap = new HashMap<>();
+        Page page = Page.of(pageNumber-1,pageSize);
+        PanacheQuery<Media> resutlsPanacheQuery = find("#media.findByUser", Parameters.with("user", user));
+        resutlsPanacheQuery.page(page);
+        resultMap.put("data", resutlsPanacheQuery.list());
+        resultMap.put("pageNo",pageNumber);
+        resultMap.put("pageSize",pageSize);
+        resultMap.put("pageCount",resutlsPanacheQuery.pageCount());
+        resultMap.put("count",resutlsPanacheQuery.count());
+        return resultMap;
+    }
 
     /**
      * find Media by Metadata
@@ -115,7 +146,8 @@ public class Media extends PanacheEntityBase {
         //List<String> values = Arrays.asList(attributeValues.split(","));
         String value = attributeValues + "%";
         Page page = Page.of(pageNumber-1,pageSize);
-        PanacheQuery<Media> resutlsPanacheQuery = find("#media.findByMetadata",Parameters.with("name", attributeName).and("values", value) );
+        //PanacheQuery<Media> resutlsPanacheQuery = find("#media.findByMetadata",Parameters.with("name", attributeName).and("values", "%"+value+"%") );
+        PanacheQuery<Media> resutlsPanacheQuery = find("#media.search",Parameters.with("values", "%"+value+"%") );
         resutlsPanacheQuery.page(page);
         resultMap.put("data", resutlsPanacheQuery.list());
         resultMap.put("pageNo",pageNumber);

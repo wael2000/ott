@@ -63,4 +63,15 @@ public class MediaService {
         return Media.findByMetadata(name, values,pageNumber, pageSize);
     }
 
+    /**
+     * Find media by user
+     * @param user
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    public Map<String,Object> findByUser(String user, int pageNumber,int pageSize){
+        return Media.findByUser(user, pageNumber, pageSize);
+    }
+
 }
