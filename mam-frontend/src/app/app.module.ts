@@ -41,9 +41,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
         clientId: 'mam'
       },
       initOptions: {
-        onLoad: 'check-sso',
+        onLoad: 'login-required',
+        checkLoginIframe: false
+
+        //checkLoginIframe: false,
+        /*onLoad: 'check-sso',
         silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/check-sso.html'
+          window.location.origin + '/assets/check-sso.html'*/
       }
     });
 }
