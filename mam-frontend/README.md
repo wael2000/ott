@@ -4,7 +4,9 @@
 src/app/_metronic/partials/layout/extras/dropdown-inner/unser-inner
 
 2 - authentication
+
 src/app/app-modules.ts
+
 src/app/auth/auth-gaurd.ts
 
 3 - Layout
@@ -13,27 +15,32 @@ src/app/_metronic/layout/layout.module
 4 - if you want to disable modules, remove them from layout.module.ts
 
 4 - custom modules
+
 4-1 add to src/app/modules
+
 4-2 add module routing to
+
 src/app/pages/routing.ts
 
 5 - Media module 
-app/modules/media
-media.component.css		
-media.component.ts		
-media.edit.component.spec.ts	
-media.service.spec.ts
-media.component.html		
-media.edit.component.css	
-media.edit.component.ts		
-media.service.ts
-media.component.spec.ts		
-media.edit.component.html	media.module.ts
+- app/modules/media
+- media.component.css		
+- media.component.ts		
+- media.edit.component.spec.ts	
+- media.service.spec.ts
+- media.component.html		
+- media.edit.component.css	
+- media.edit.component.ts		
+- media.service.ts
+- media.component.spec.ts		
+- media.edit.component.html	
+- media.module.ts
 
 
 module routes need to be added under 
-app/pages/rounting.ts
 
+app/pages/rounting.ts
+```sh
 {
   path: 'media',
   resolve: {
@@ -42,7 +49,7 @@ app/pages/rounting.ts
   loadChildren: () =>
     import('../modules/media/media.module').then((m) => m.MediaModule),
 }
-
+```
 
 
 ## Development server
