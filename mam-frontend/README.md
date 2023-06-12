@@ -1,9 +1,7 @@
 # Hadif
 
 1 - user info
-src/app/_metronic/partials/layout/extras/dropdown-inner/unser-inner/unser-inner-component.ts
-
-src/app/_metronic/partials/layout/extras/dropdown-inner/unser-inner/unser-inner-component.html
+src/app/_metronic/partials/layout/extras/dropdown-inner/unser-inner
 
 2 - authentication
 src/app/app-modules.ts
@@ -19,9 +17,33 @@ src/app/_metronic/layout/layout.module
 4-2 add module routing to
 src/app/pages/routing.ts
 
+5 - Media module 
+app/modules/media
+media.component.css		
+media.component.ts		
+media.edit.component.spec.ts	
+media.service.spec.ts
+media.component.html		
+media.edit.component.css	
+media.edit.component.ts		
+media.service.ts
+media.component.spec.ts		
+media.edit.component.html	media.module.ts
 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.x.x.
+module routes need to be added under 
+app/pages/rounting.ts
+
+{
+  path: 'media',
+  resolve: {
+    mediaList: MediaService
+  },
+  loadChildren: () =>
+    import('../modules/media/media.module').then((m) => m.MediaModule),
+}
+
+
 
 ## Development server
 
