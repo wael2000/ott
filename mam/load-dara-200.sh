@@ -46,8 +46,8 @@ user=$[$RANDOM % ${#users[@]}]
 year=$[$RANDOM % ${#years[@]}]
 type=$[$RANDOM % ${#types[@]}]
 ageRating=$[$RANDOM % ${#ageRatings[@]}]
-tag1=$[$RANDOM % ${#tags[@]}]
-tag2=$[$RANDOM % ${#tags[@]}]
+tag=$[$RANDOM % ${#tags[@]}]
+
 
 TEMP_FILE="media.json"
 
@@ -57,8 +57,6 @@ cat > "${TEMP_FILE}" << EOF
     "title": "Journey to ${arr[$rand]} $i",
     "description": "Journey to ${arr[$rand]} $i",
     "longDescription": "Journey to ${arr[$rand]} $i",
-    "hour": 1,
-    "minute": 30,
     "releaseYear" : ${years[$year]},
     "type": "${types[$type]}",
     "ageRating": "${ageRatings[$ageRating]}",
@@ -71,10 +69,20 @@ cat > "${TEMP_FILE}" << EOF
     "thumbnailMobile": "mobile1.png",
     "thumbnailTv": "tv1.png",
     "thumbnailWeb": "web1.png",
-    
+    "mediaAssets" :[
+      { "hour":1,
+        "minute": 20,
+        "episodeNumber":1,
+        "episodeTitle": "First Episode"
+      },
+      { "hour":1,
+        "minute": 33,
+        "episodeNumber":2,
+        "episodeTitle": "Second Episode"
+      }
+    ],
     "tags": [
-        {"id": ${tags[$tag1]}},
-        {"id": ${tags[$tag2]}}
+        {"id": ${tags[$tag]}}
     ],
     "metadata" : [
         {

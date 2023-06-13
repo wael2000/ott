@@ -21,6 +21,7 @@ public class MediaService {
     public Media createMedia(Media media) {
         media.persist();
         media.attachMetadata(media.metadata);
+        media.attachMediaAssets(media.mediaAssets);
         return media;
     }
 

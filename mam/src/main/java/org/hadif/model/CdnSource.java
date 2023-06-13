@@ -27,6 +27,6 @@ public class CdnSource extends PanacheEntityBase  {
     public String src;
 
     @ManyToOne
-    public Media media;
+    public MediaAsset mediaAsset;
     
 }

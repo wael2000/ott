@@ -50,9 +50,6 @@ public class Media extends BaseModel  {
     public String longDescription;
     public String ageRating;        // kids, adults
 
-    // Metadata
-    public Integer hour; 
-    public Integer minute;
     public Integer releaseYear;
 
     // Media Delivery
@@ -88,10 +85,6 @@ public class Media extends BaseModel  {
     )
     public Set<Tag> tags = new HashSet<>();
      
-    
-    @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    public Set<CdnSource> cdnSources = new HashSet<>();
-    
     /**
      * placeholder for all extra metadata, for example
      * Directors, Actors, Producers, Writers, IMDB
@@ -99,6 +92,14 @@ public class Media extends BaseModel  {
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     public Set<Metadata> metadata = new HashSet<>();
     
+    /**
+     * link to all media assets to mainly store the media asset info like length, episode No
+     * in case of series it is one-to-many
+     * in case of movie it is one-to-one
+     */
+    @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    public Set<MediaAsset> mediaAssets = new HashSet<>();    
+
     // Helper Methods
 
     public static Map<String,Object> listAll(int pageNumber,int pageSize) {   
@@ -159,6 +160,13 @@ public class Media extends BaseModel  {
 
     public void attachMetadata(Set<Metadata> metadataList){
         for (Metadata item : metadataList) {
+            item.media = this;
+            item.persist();
+        }
+    }
+
+    public void attachMediaAssets(Set<MediaAsset> mediaAssets){
+        for (MediaAsset item : mediaAssets) {
             item.media = this;
             item.persist();
         }
